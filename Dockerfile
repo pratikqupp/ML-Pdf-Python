@@ -25,4 +25,4 @@ RUN pip install flask
 EXPOSE 10000
 
 # 9. Start both the mail_fetcher and a Flask server
-CMD ["sh", "-c", "python mail_fetcher.py & python server.py"]
+CMD ["python", "server.py"]
