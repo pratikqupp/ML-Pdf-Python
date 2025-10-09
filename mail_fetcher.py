@@ -55,7 +55,7 @@ def get_filename_from_part(part) -> str:
 def upload_report_to_api(file_path: str, patient_name: str):
     try:
         with open(file_path, "rb") as f:
-            files = {"pdf": (os.path.basename(file_path), f, "application/pdf")}
+            files = {"file": (os.path.basename(file_path), f, "application/pdf")}
             data = {"name": patient_name}
             response = requests.post(API_UPLOAD_URL, files=files, data=data)
         if response.status_code == 200:

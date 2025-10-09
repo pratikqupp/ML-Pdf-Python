@@ -1,28 +1,20 @@
-# 1. Base image with Python 3.10
+# 1. Use Python 3.10 (same as your local)
 FROM python:3.10-slim
 
-# 2. Working directory
+# 2. Set working directory
 WORKDIR /app
 
 # 3. Copy project files
 COPY . .
 
-# 4. Install system dependencies
+# 4. Install system dependencies if needed
 RUN apt-get update && \
     apt-get install -y build-essential libffi-dev tesseract-ocr poppler-utils && \
     rm -rf /var/lib/apt/lists/*
 
-# 5. Upgrade pip
+# 5. Upgrade pip & install dependencies
 RUN pip install --upgrade pip setuptools wheel
-
-# 6. Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 7. Install Flask (agar requirements me nahi hai)
-RUN pip install flask
-
-# 8. Expose port for Render
-EXPOSE 10000
-
-# 9. Start both the mail_fetcher and a Flask server
-CMD ["python", "server.py"]
+# 6. Run mail_fetcher.py as main process
+CMD ["python", "mail_fetcher.py"]
