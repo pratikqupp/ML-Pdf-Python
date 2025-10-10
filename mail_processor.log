@@ -2,3 +2,92 @@
 2025-10-10 11:15:20 [INFO] [mymddrreports] Connecting to imap.gmail.com ...
 2025-10-10 11:15:28 [INFO] \U0001f6d1 Graceful shutdown requested. Saving state...
 2025-10-10 11:15:28 [INFO] \u2705 Shutdown complete.
+2025-10-10 11:15:41 [INFO] \U0001f4ec Mail processor started...
+2025-10-10 11:15:41 [INFO] [mymddrreports] Connecting to imap.gmail.com ...
+2025-10-10 11:15:54 [INFO] [mymddrreports] UID 14 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:15:59 [INFO] [mymddrreports] 'DK826O1758109668017_RLS.pdf' -> 'Varsha Charankar'
+2025-10-10 11:16:01 [INFO] [UPLOAD \u2705] C:\Users\prati\AppData\Local\Temp\rep_dbgmr2ga.pdf for 'Varsha Charankar'
+2025-10-10 11:16:10 [INFO] [mymddrreports] UID 13 | From: Pratik Pansare <pratik97669966@gmail.com> | Subject: Fwd: Hello
+2025-10-10 11:16:11 [INFO] [mymddrreports] 'DK826O1758109668017_RLS.pdf' -> 'Varsha Charankar'
+2025-10-10 11:16:14 [INFO] [UPLOAD \u2705] C:\Users\prati\AppData\Local\Temp\rep_ya5g9qjp.pdf for 'Varsha Charankar'
+2025-10-10 11:16:20 [INFO] [mymddrreports] UID 12 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:16:20 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:16:21 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:16:26 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:16:30 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:16:33 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_zz5hpseb.pdf)
+2025-10-10 11:16:41 [INFO] [mymddrreports] UID 11 | From: Pratik Pansare <pratik97669966@gmail.com> | Subject: Fwd: Hello
+2025-10-10 11:16:43 [INFO] [mymddrreports] 'DK826O1758109668017_RLS.pdf' -> 'Varsha Charankar'
+2025-10-10 11:16:45 [INFO] [UPLOAD \u2705] C:\Users\prati\AppData\Local\Temp\rep_6emesuxu.pdf for 'Varsha Charankar'
+2025-10-10 11:16:52 [INFO] [mymddrreports] UID 10 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:16:52 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:16:53 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:16:57 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:17:01 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:17:04 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_n_vsof8m.pdf)
+2025-10-10 11:17:11 [INFO] [mymddrreports] UID 9 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:17:17 [INFO] [mymddrreports] UID 8 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:17:23 [INFO] [mymddrreports] UID 7 | From: Google <no-reply@accounts.google.com> | Subject: 2-Step Verification turned on
+2025-10-10 11:17:30 [INFO] [mymddrreports] UID 6 | From: ChatGPT <noreply@email.openai.com> | Subject: Some handy ideas for you
+2025-10-10 11:17:36 [INFO] [mymddrreports] UID 5 | From: ashish@qupapp.com | Subject: Test Mail ji
+2025-10-10 11:18:42 [INFO] [mymddrreports] Connecting to imap.gmail.com ...
+2025-10-10 11:19:08 [INFO] [mymddrreports] UID 12 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:19:08 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:19:09 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:19:14 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:19:18 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:19:21 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_udffkel_.pdf)
+2025-10-10 11:19:35 [INFO] [mymddrreports] UID 10 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:19:35 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:19:36 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:19:41 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:19:45 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:19:48 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_at0ipxl0.pdf)
+2025-10-10 11:19:56 [INFO] [mymddrreports] UID 9 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:20:03 [INFO] [mymddrreports] UID 8 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:20:11 [INFO] [mymddrreports] UID 7 | From: Google <no-reply@accounts.google.com> | Subject: 2-Step Verification turned on
+2025-10-10 11:20:18 [INFO] [mymddrreports] UID 6 | From: ChatGPT <noreply@email.openai.com> | Subject: Some handy ideas for you
+2025-10-10 11:20:26 [INFO] [mymddrreports] UID 5 | From: ashish@qupapp.com | Subject: Test Mail ji
+2025-10-10 11:21:34 [INFO] [mymddrreports] Connecting to imap.gmail.com ...
+2025-10-10 11:22:06 [INFO] [mymddrreports] UID 12 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:22:06 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:22:07 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:22:12 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:22:16 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:22:19 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep__xufwuzk.pdf)
+2025-10-10 11:22:37 [INFO] [mymddrreports] UID 10 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:22:37 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:22:38 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:22:42 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:22:46 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:22:49 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_tsanqhbj.pdf)
+2025-10-10 11:23:00 [INFO] [mymddrreports] UID 9 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:23:10 [INFO] [mymddrreports] UID 8 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:23:21 [INFO] [mymddrreports] UID 7 | From: Google <no-reply@accounts.google.com> | Subject: 2-Step Verification turned on
+2025-10-10 11:23:31 [INFO] [mymddrreports] UID 6 | From: ChatGPT <noreply@email.openai.com> | Subject: Some handy ideas for you
+2025-10-10 11:23:42 [INFO] [mymddrreports] UID 5 | From: ashish@qupapp.com | Subject: Test Mail ji
+2025-10-10 11:24:52 [INFO] [mymddrreports] Connecting to imap.gmail.com ...
+2025-10-10 11:25:14 [INFO] [mymddrreports] UID 15 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:25:16 [INFO] [mymddrreports] 'Report-250176508869965_SWAPNILNAIKWADE_COC023841_17Sep2025_155045.pdf' -> 'SWAPNIL NAIKWADE'
+2025-10-10 11:25:18 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:25:22 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:25:27 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:25:30 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'SWAPNIL NAIKWADE' (C:\Users\prati\AppData\Local\Temp\rep_38_gpvbm.pdf)
+2025-10-10 11:25:59 [INFO] [mymddrreports] UID 12 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:25:59 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:26:01 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:26:05 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:26:09 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:26:12 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_xxa5fxnw.pdf)
+2025-10-10 11:26:33 [INFO] [mymddrreports] UID 10 | From: pratik.p@qupapp.com | Subject: 
+2025-10-10 11:26:33 [INFO] [mymddrreports] '125090547_SATISH_BALLAL_WL.pdf' -> 'Satish Ballal'
+2025-10-10 11:26:35 [WARNING] [UPLOAD \u274c Attempt 1] 404: {"message":"User not found"}
+2025-10-10 11:26:39 [WARNING] [UPLOAD \u274c Attempt 2] 404: {"message":"User not found"}
+2025-10-10 11:26:43 [WARNING] [UPLOAD \u274c Attempt 3] 404: {"message":"User not found"}
+2025-10-10 11:26:46 [ERROR] [UPLOAD FAILED \U0001f6ab] Gave up after 3 attempts for 'Satish Ballal' (C:\Users\prati\AppData\Local\Temp\rep_58xcsb_5.pdf)
+2025-10-10 11:26:59 [INFO] [mymddrreports] UID 9 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:27:11 [INFO] [mymddrreports] UID 8 | From: Google <no-reply@accounts.google.com> | Subject: Security alert
+2025-10-10 11:27:24 [INFO] [mymddrreports] UID 7 | From: Google <no-reply@accounts.google.com> | Subject: 2-Step Verification turned on
+2025-10-10 11:27:36 [INFO] [mymddrreports] UID 6 | From: ChatGPT <noreply@email.openai.com> | Subject: Some handy ideas for you
+2025-10-10 11:27:52 [INFO] \U0001f6d1 Graceful shutdown requested. Saving state...
+2025-10-10 11:27:52 [INFO] \u2705 Shutdown complete.

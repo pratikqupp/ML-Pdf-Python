@@ -7,61 +7,42 @@ import os
 import tempfile
 import traceback
 import time
-import logging
-from typing import Dict, Any, Optional
 import requests
+from typing import Dict, Any, Optional
+import concurrent.futures
+import logging
 
+# ===========================
+# 🔧 Configuration
+# ===========================
 CONFIG_PATH = "config.json"
-STATE_FILE = "state.json"
-FAILED_STATE_FILE = "failed_state.json"
-
 API_UPLOAD_URL = "https://toplabsbazaardev-git-development-pratiks-projects-7c12a0c0.vercel.app/booking-services/upload-report"
 
-# ---------- LOGGING SETUP ----------
+# ===========================
+# 🪵 Logging
+# ===========================
 logging.basicConfig(
-    filename="mail_processor.log",
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
+    datefmt="%H:%M:%S"
 )
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-console.setFormatter(formatter)
-logging.getLogger().addHandler(console)
 
-# ---------- HELPERS ----------
-def load_json(path: str, default):
-    if not os.path.exists(path):
-        return default
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        logging.exception(f"Error loading {path}")
-        return default
-
-def save_json(path: str, data):
-    try:
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2)
-    except Exception:
-        logging.exception(f"Error saving {path}")
-
+# ===========================
+# 🧰 Helpers
+# ===========================
 def load_config(path: str) -> Dict[str, Any]:
-    return load_json(path, {})
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-def load_state() -> set:
-    return set(load_json(STATE_FILE, []))
+def load_state(state_file: str) -> set:
+    if not os.path.exists(state_file):
+        return set()
+    with open(state_file, "r", encoding="utf-8") as f:
+        return set(json.load(f))
 
-def save_state(state: set):
-    save_json(STATE_FILE, list(state))
-
-def load_failed_state() -> set:
-    return set(load_json(FAILED_STATE_FILE, []))
-
-def save_failed_state(state: set):
-    save_json(FAILED_STATE_FILE, list(state))
+def save_state(state_file: str, state: set):
+    with open(state_file, "w", encoding="utf-8") as f:
+        json.dump(list(state), f, indent=2)
 
 def decode_str(s: Optional[bytes]) -> str:
     if not s:
@@ -84,30 +65,27 @@ def get_filename_from_part(part) -> str:
     fname = part.get_filename()
     return decode_str(fname) if fname else ""
 
-# ---------- UPLOAD WITH RETRY ----------
-def upload_report_to_api(file_path: str, patient_name: str, max_retries=3) -> bool:
-    for attempt in range(1, max_retries + 1):
-        try:
-            with open(file_path, "rb") as f:
-                files = {"file": (os.path.basename(file_path), f, "application/pdf")}
-                data = {"patientName": patient_name}
-                response = requests.post(API_UPLOAD_URL, files=files, data=data, timeout=20)
+# ===========================
+# ☁️ API Upload
+# ===========================
+def upload_report_to_api(file_path: str, patient_name: str):
+    try:
+        with open(file_path, "rb") as f:
+            files = {"file": (os.path.basename(file_path), f, "application/pdf")}
+            data = {"patientName": patient_name}
+            response = requests.post(API_UPLOAD_URL, files=files, data=data)
 
-            if response.status_code == 200:
-                logging.info(f"[UPLOAD ✅] {file_path} for '{patient_name}'")
-                return True
-            else:
-                logging.warning(f"[UPLOAD ❌ Attempt {attempt}] {response.status_code}: {response.text}")
-        except Exception as e:
-            logging.error(f"[UPLOAD ❌ Attempt {attempt}] Error: {e}")
+        if response.status_code == 200:
+            logging.info(f"[UPLOAD ✅] Uploaded {file_path} for '{patient_name}'")
+        else:
+            logging.error(f"[UPLOAD ❌] Failed ({response.status_code}): {response.text}")
+    except Exception as e:
+        logging.error(f"[UPLOAD ❌] Error uploading {file_path}: {e}")
 
-        time.sleep(3)  # backoff between retries
-
-    logging.error(f"[UPLOAD FAILED 🚫] Gave up after {max_retries} attempts for '{patient_name}' ({file_path})")
-    return False
-
-# ---------- MAIN PROCESSING ----------
-def process_account(account: Dict[str, Any], processed_ids: set, failed_ids: set):
+# ===========================
+# 📬 Mail Processing
+# ===========================
+def process_account(account: Dict[str, Any], processed_ids: set, max_emails: int):
     name = account.get("name") or account["email"]
     imap_server = account["imap_server"]
     imap_port = account.get("imap_port", 993)
@@ -124,19 +102,19 @@ def process_account(account: Dict[str, Any], processed_ids: set, failed_ids: set
 
     try:
         imap.select("INBOX")
-        result, data = imap.uid("search", None, "ALL")
-        if result != "OK":
+        result, data = imap.uid('search', None, "ALL")
+        if result != 'OK':
             logging.error(f"[{name}] UID search failed")
             imap.logout()
             return
 
         uids = sorted([int(x) for x in data[0].split()], reverse=True)
-        latest_uids = uids[:10]
+        latest_uids = uids[:max_emails]
 
         for uid in latest_uids:
             try:
-                res, msg_data = imap.uid("fetch", str(uid), "(RFC822)")
-                if res != "OK" or not msg_data or not msg_data[0]:
+                res, msg_data = imap.uid('fetch', str(uid), '(RFC822)')
+                if res != 'OK' or not msg_data or not msg_data[0]:
                     continue
 
                 raw = msg_data[0][1]
@@ -148,15 +126,14 @@ def process_account(account: Dict[str, Any], processed_ids: set, failed_ids: set
 
                 frm = decode_str(msg.get("From", ""))
                 subject = decode_str(msg.get("Subject", ""))
-                logging.info(f"[{name}] UID {uid} | From: {frm} | Subject: {subject}")
+                logging.info(f"[{name}] Processing UID {uid}, From: {frm}, Subject: {subject}")
 
                 for part in msg.walk():
-                    if part.get_content_maintype() == "multipart":
+                    if part.get_content_maintype() == 'multipart':
                         continue
                     filename = get_filename_from_part(part)
-                    if not filename.lower().endswith(".pdf"):
+                    if not filename or not filename.lower().endswith(".pdf"):
                         continue
-
                     payload = part.get_payload(decode=True)
                     if not payload:
                         continue
@@ -166,63 +143,81 @@ def process_account(account: Dict[str, Any], processed_ids: set, failed_ids: set
                         temp_path = tf.name
 
                     try:
-                        from name_extractor import extract_patient_name
+                        try:
+                            from name_extractor import extract_patient_name
+                        except Exception:
+                            extract_patient_name = globals().get("extract_patient_name")
+                            if not extract_patient_name:
+                                raise RuntimeError("extract_patient_name function not available.")
+
                         res_name = extract_patient_name(temp_path, original_filename=filename)
-                        extracted_name = res_name[0] if isinstance(res_name, tuple) else res_name
-
-                        logging.info(f"[{name}] '{filename}' -> '{extracted_name}'")
-
-                        success = upload_report_to_api(temp_path, extracted_name)
-                        if success:
-                            processed_ids.add(message_id)
+                        if isinstance(res_name, tuple):
+                            extracted_name, source = res_name
                         else:
-                            failed_ids.add(message_id)
+                            extracted_name = res_name
+                            source = "filename"
+
+                        logging.info(f"[{name}] Attachment '{filename}' -> extracted: '{extracted_name}' (source: {source})")
+
+                        upload_report_to_api(temp_path, extracted_name)
 
                     except Exception as ex_proc:
-                        logging.exception(f"[{name}] Error processing {filename}: {ex_proc}")
-                        failed_ids.add(message_id)
+                        logging.error(f"[{name}] Error processing attachment {filename}: {ex_proc}")
+                        traceback.print_exc()
                     finally:
                         try:
                             if os.path.exists(temp_path):
                                 os.remove(temp_path)
-                        except Exception:
-                            logging.warning(f"[CLEANUP ❌] {temp_path} not deleted")
+                                logging.info(f"[CLEANUP 🧹] Deleted temp file: {temp_path}")
+                        except Exception as del_err:
+                            logging.error(f"[CLEANUP ❌] Failed to delete {temp_path}: {del_err}")
 
-                imap.uid("store", str(uid), "+FLAGS", "(\\Seen)")
+                imap.uid('store', str(uid), '+FLAGS', '(\\Seen)')
+                processed_ids.add(message_id)
+                time.sleep(0.1)
 
             except Exception as e_item:
-                logging.exception(f"[{name}] Error UID {uid}: {e_item}")
+                logging.error(f"[{name}] Error UID {uid}: {e_item}")
+                traceback.print_exc()
 
+    finally:
         imap.logout()
 
-    except Exception as e_main:
-        logging.exception(f"[{name}] Mailbox processing error: {e_main}")
-        try:
-            imap.logout()
-        except Exception:
-            pass
-
-# ---------- RUNNER ----------
+# ===========================
+# 🧵 Threaded Main Loop
+# ===========================
 def main_loop():
     cfg = load_config(CONFIG_PATH)
     interval = cfg.get("poll_interval_seconds", 30)
-    processed_ids = load_state()
-    failed_ids = load_failed_state()
+    state_file = cfg.get("state_file", "state.json")
+    max_emails = cfg.get("max_emails_per_run", 50)
+    accounts = cfg.get("accounts", [])
 
-    logging.info("📬 Mail processor started...")
+    processed_ids = load_state(state_file)
+    max_threads = min(5, len(accounts)) or 1
+
+    logging.info(f"📬 Mail processor started with {len(accounts)} account(s), {max_threads} thread(s)")
 
     try:
         while True:
-            for account in cfg.get("accounts", []):
-                process_account(account, processed_ids, failed_ids)
-            save_state(processed_ids)
-            save_failed_state(failed_ids)
-            time.sleep(interval)
-    except KeyboardInterrupt:
-        logging.info("🛑 Graceful shutdown requested. Saving state...")
-        save_state(processed_ids)
-        save_failed_state(failed_ids)
-        logging.info("✅ Shutdown complete.")
+            with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
+                futures = [executor.submit(process_account, acc, processed_ids, max_emails) for acc in accounts]
+                for future in concurrent.futures.as_completed(futures):
+                    try:
+                        future.result()
+                    except Exception as e:
+                        logging.exception(f"Thread execution error: {e}")
 
+            save_state(state_file, processed_ids)
+            time.sleep(interval)
+
+    except KeyboardInterrupt:
+        logging.info("🛑 Graceful shutdown requested...")
+        save_state(state_file, processed_ids)
+        logging.info("✅ State saved. Bye!")
+
+# ===========================
+# 🚀 Entry Point
+# ===========================
 if __name__ == "__main__":
     main_loop()
