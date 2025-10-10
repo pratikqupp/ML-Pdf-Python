@@ -56,7 +56,7 @@ def upload_report_to_api(file_path: str, patient_name: str):
     try:
         with open(file_path, "rb") as f:
             files = {"file": (os.path.basename(file_path), f, "application/pdf")}
-            data = {"name": patient_name}
+            data = {"patientName": patient_name}
             response = requests.post(API_UPLOAD_URL, files=files, data=data)
         if response.status_code == 200:
             print(f"[UPLOAD ✅] Uploaded {file_path} for '{patient_name}'")
