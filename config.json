@@ -1,17 +1,5 @@
 {
     "accounts": [
-        
-        {
-            "name": "pratik pansare",
-            "email": "pratik97669966@gmail.com",
-            "password": "ugpt dhcp jrho kpvw",
-            "imap_server": "imap.gmail.com",
-            "imap_port": 993,
-            "labs": [
-                "pratik.p@qupapp.com",
-                "narodeajit7@gmail.com"
-            ]
-        },
         {
             "name": "mymddrreports",
             "email": "mymddrreports@gmail.com",
