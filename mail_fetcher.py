@@ -21,7 +21,7 @@ from playwright.sync_api import sync_playwright
 # 🔧 Configuration
 # ===========================
 CONFIG_PATH = "config.json"
-API_UPLOAD_URL = "https://toplabsbazaardev-git-development-pratiks-projects-7c12a0c0.vercel.app/booking-services/upload-report"
+API_UPLOAD_URL = "https://toplabsbazaardev-git-21-nov-issue-pratiks-projects-7c12a0c0.vercel.app/booking-services/upload-report"
 
 # NEW: Batch size to reduce requests to the IMAP server
 BATCH_SIZE = 20
